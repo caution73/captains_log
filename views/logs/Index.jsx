@@ -1,27 +1,33 @@
 const React = require("react");
+const DefaultLayout = require("../layout/Default")
 
 class Index extends React.Component {
   render() {
     const { logs } = this.props;
     return (
-      <div className="indexPage">
-        <h1>Here lies our index</h1>
+     <DefaultLayout>
+       <div className="page">
+        <h1>Captain's Log</h1>
         <a href="/logs/new">Create a log</a>
         <ul>
-          Logs
           {logs.map((log, i) => {
             return (
               <li key={i}>
-                <a href={`/logs/${log._id}`}>{log.title}</a>
-                <a href={`/logs/${log._id}/edit`}>Edit this log</a>
-                <form action={`/logs/${log._id}/?_method=DELETE`} method="POST">
+                <table>
+                  <tr>
+                    <td> <div><a href={`/logs/${log._id}`}>{log.title}</a></div></td>
+                    <td><div><a href={`/logs/${log._id}/edit`}>Edit this log</a></div></td>
+                    <td> <form action={`/logs/${log._id}/?_method=DELETE`} method="POST">
                   <input type="submit" value="DELETE" />
-                </form>
+                </form></td>
+                  </tr>              
+                </table>
               </li>
             );
           })}
         </ul>
       </div>
+     </DefaultLayout>
     );
   }
 }

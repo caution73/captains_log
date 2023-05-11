@@ -1,0 +1,45 @@
+body {
+    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+li {
+    list-style-type: none;
+}
+
+table {
+    border: 2px solid black;
+    padding: 2px;
+}
+
+td > div {
+    width: 15vw;
+    padding-left: 3vw;
+
+}
+
+.formContainer > *{
+    margin: 3vh;
+}
+
+
+td {
+    border-left: 2px solid green;
+    border-bottom: 2px solid black;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+

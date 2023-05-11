@@ -59,14 +59,6 @@ app.get('/logs/new', async (req, res) => {
 
 
 
-
-
-
-
-
-//   router.get('/new', (req, res) => {
-//     res.render('vegetables/New');
-//   });
   
 //   // DELETE/DESTROY
 //   // This receives info the id of the fruit document and deletes it, then redirects back to index.
@@ -103,6 +95,20 @@ app.get('/logs/new', async (req, res) => {
 //   // Create // recieves info from new route to then create a new fruit w/ it
   
   
+
+
+app.post('/logs', async (req, res) => {
+    try{
+        req.body.shipIsBroken = req.body.shipIsBroken === "on"; 
+        res.send(req.body)
+    }catch(err){
+        res.status(400).send(err)
+    }
+})
+
+
+
+
 //   router.post('/', async (req, res) => {
 //     try {
 //       req.body.readyToEat = req.body.readyToEat === 'on';

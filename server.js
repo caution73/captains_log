@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const { connect, connection } = require('mongoose');
 const Log = require('./models/logs');
-// const methodOverride = require('method-override')
+const methodOverride = require('method-override')
 
 
 const reactViewsEngine = require('jsx-view-engine').createEngine();
@@ -17,7 +17,7 @@ app.set('views', './views');
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
-// app.use(methodOverride('_method'));
+app.use(methodOverride('_method'));
 // The line below tells the server to look for static assets in the public folder, like css, imgs, or fonts
 app.use(express.static('public'))
 
@@ -67,21 +67,19 @@ app.get('/logs/new', async (req, res) => {
 })
 
 
-
-
-  
 //   // DELETE/DESTROY
 //   // This receives info the id of the fruit document and deletes it, then redirects back to index.
   
-  
-//   router.delete('/:id', async (req, res) => {
-//     try{
-//       await Vegetable.findByIdAndDelete(req.params.id)
-//       res.redirect('/vegetables')
-//     }catch(err) {
-//       res.status(400).send(err)
-//     }
-//   });
+
+app.delete('/logs/:id', async (req, res) => {
+    try{
+        await Log.findByIdAndDelete(req.params.id)
+        res.redirect('/logs')
+    }catch(err){
+        res.status(400).send(err)
+    }
+})
+
   
   
 //   // Update / (PUT)
@@ -117,22 +115,6 @@ app.post('/logs', async (req, res) => {
         res.status(400).send(err)
     }
 })
-
-
-
-
-//   router.post('/', async (req, res) => {
-//     try {
-//       req.body.readyToEat = req.body.readyToEat === 'on';
-//       const newVegetable = await Vegetable.create(req.body);
-//       console.log(newVegetable);
-//       //console.log(fruits);
-//       // redirect is making a GET request to whatever path you specify
-//       res.redirect('/vegetables');
-//     } catch (err) {
-//       res.status(400).send(err);
-//     }
-//   });
   
   
 //   // Edit

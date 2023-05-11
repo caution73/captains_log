@@ -1,8 +1,10 @@
 require('dotenv').config();
 const express = require('express');
+const db = require('./config/database')
 const app = express();
 const PORT = process.env.PORT || 8000;
 const { connect, connection } = require('mongoose');
+const Log = require('./models/logs');
 // const methodOverride = require('method-override')
 
 
@@ -31,7 +33,15 @@ app.use((req, res, next) => {
 // Index
 
 
-
+app.get('/logs', async (req, res) => {
+    console.log('Index Controller Func. running...')
+    try{
+        const foundLogs = await Log.find({})
+        res.render('Index', {logs: foundLogs})
+    }catch(err){
+        res.status(400).send(err)
+    }
+})
 
 
 
@@ -100,7 +110,9 @@ app.get('/logs/new', async (req, res) => {
 app.post('/logs', async (req, res) => {
     try{
         req.body.shipIsBroken = req.body.shipIsBroken === "on"; 
-        res.send(req.body)
+        const newLog = await Log.create(req.body);
+        console.log(newLog)
+        res.redirect('/logs')
     }catch(err){
         res.status(400).send(err)
     }
@@ -140,8 +152,17 @@ app.post('/logs', async (req, res) => {
   
   
 //   // Show
-  
-  
+
+app.get('/logs/:id', async (req, res) => {
+    try{
+        const foundLog = await Log.findById(req.params.id)
+        res.render('Show', { log: foundLog})
+    }catch(err){
+        res.status(400).send(err)
+    }
+})
+
+
 //   router.get('/:id', async (req, res) => {
 //     try {
 //       // We are using the id given to us in the URL params to 
